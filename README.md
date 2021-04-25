@@ -1,10 +1,10 @@
 # python-log-repair
 
+> A Python library to repair an invalid log file, especially from logs of Java application server.
+
 ## Table of contents
 
 * [Synopsis](#synopsis)
-
-> A Python library to repair an invalid log file, especially from logs of Java application server.
 
 ## Synopsis <a name="synopsis" />
 
