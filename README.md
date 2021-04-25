@@ -1,5 +1,14 @@
-# python-formatter-javaexception
-A Python library to format a Java exception
+# python-log-repair
+
+## Table of contents
+
+* [Synopsis](#synopsis)
+
+> A Python library to repair an invalid log file, especially from logs of Java application server.
+
+## Synopsis <a name="synopsis" />
+
+A Python library to repair an invalid log file, especially from logs of Java application server.
 
 
 ## Credits
