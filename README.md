@@ -68,10 +68,13 @@ Please refer to project's style guidelines and guidelines for submitting patches
 
 ## <a name="credits">Credits</a>
 
-<!-- Thank you very much to this used or integrated open source developments: -->
+Thank you very much to this used or integrated open source developments:
+
+* Thank to [Daniel Kullmann](https://stackoverflow.com/users/85615/daniel-kullmann) for the [Python script to extract java stack traces from log files](https://stackoverflow.com/a/16146340)
 
 ## <a name="resources">Resources</a>
 
+* [Python script to extract java stack traces from log files](https://stackoverflow.com/a/16146340)
 
 ## <a name="history">History</a>
 
