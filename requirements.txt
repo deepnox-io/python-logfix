@@ -1,2 +1,4 @@
 # Requirements used by python-log-repair
 
+loggz~=0.1.1
+setuptools~=56.0.0
