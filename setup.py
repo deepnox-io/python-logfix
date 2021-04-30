@@ -54,11 +54,12 @@ setup(
     author='Deepnox',
     author_email='opensource@deepnox.io',
     packages=find_packages(include=['log_repair']),
+    package_dir={'': 'src'},
     url='http://pypi.python.org/pypi/log-repair/',
     license='MIT',
     cmdclass={'egg_info': egg_info_ex},
     license_files=('LICENSE',),
-    description='A helper to implement simple but standard and jsonified strategies for logging.',
+    description='A Python library to repair an invalid log file, especially logs file of Java application server.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     install_requires=[
