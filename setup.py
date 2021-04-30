@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-""" This file is a part of [python-log-repair](https://github.com/deepnox-io/python-log-repair): script to install Python package.
+""" This file is a part of [python-logfix](https://github.com/deepnox-io/python-logfix): script to install Python package.
 
 A Python library to repair an invalid log file, especially logs file of Java application server.
 
@@ -49,13 +49,13 @@ class egg_info_ex(egg_info):
 
 
 setup(
-    name='log-repair',
+    name='logfix',
     version='0.0.1',
     author='Deepnox',
     author_email='opensource@deepnox.io',
-    packages=find_packages(include=['log_repair']),
+    packages=find_packages(include=['logfix']),
     package_dir={'': 'src'},
-    url='http://pypi.python.org/pypi/log-repair/',
+    url='http://pypi.python.org/pypi/logfix/',
     license='MIT',
     cmdclass={'egg_info': egg_info_ex},
     license_files=('LICENSE',),
@@ -73,6 +73,6 @@ setup(
     test_suite='tests',
     project_urls={
         # 'Documentation': 'https://requests.readthedocs.io',
-        'Source': 'https://github.com/deepnox-io/python-log-repair',
+        'Source': 'https://github.com/deepnox-io/python-logfix',
     },
 )

@@ -12,7 +12,7 @@ MAIN_LOG = loggz.factory('log-repair')
 """
 
 
-def replace(string, substitutions):
+def _replace(string, substitutions):
     """ Replace multiple strings from a dictionary.
 
     :ref: https://gist.github.com/carlsmith/b2e6ba538ca6f58689b4c18f46fef11c
@@ -23,7 +23,7 @@ def replace(string, substitutions):
     return regex.sub(lambda match: substitutions[match.group(0)], string)
 
 
-def repair_log_file(filename, tmp_file: str):
+def repair(filename, tmp_file: str):
     """ Repair a log file.
     """
     MAIN_LOG.debug('repair_log_file()')
@@ -36,7 +36,7 @@ def repair_log_file(filename, tmp_file: str):
     for match in JAVA_STACKTRACE_REGEX.finditer(lines):
         stacks[match.group(0)] = match.group(0).replace('\n', '\\n').replace('\t', ' ')
 
-    s = replace(lines, stacks)
+    s = _replace(lines, stacks)
     dst = open(tmp_file, 'w')
     dst.write(s)
     dst.close()
