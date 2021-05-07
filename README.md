@@ -70,7 +70,8 @@ Please refer to project's style guidelines and guidelines for submitting patches
 
 Thank you very much to this used or integrated open source developments:
 
-* Thank to [Daniel Kullmann](https://stackoverflow.com/users/85615/daniel-kullmann) for the [Python script to extract java stack traces from log files](https://stackoverflow.com/a/16146340)
+* [Daniel Kullmann](https://stackoverflow.com/users/85615/daniel-kullmann) for the [Python script to extract java stack traces from log files](https://stackoverflow.com/a/16146340)
+* [James Turnbull](https://github.com/jamtur01) for [Java stack trace logstash regex](https://gist.github.com/jamtur01/4384428)
 
 ## <a name="resources">Resources</a>
 
