@@ -43,10 +43,10 @@ def file_fix(src: str, dst: str = None):
         stacks[match.group(0)] = match.group(0).replace('\n', '\\n').replace('\t', ' ')
 
     s = _replace(lines, stacks)
-    dst = open(dst, 'w')
-    dst.write(s)
-    dst.close()
-    return dst
+    fixed_file = open(dst, 'w')
+    fixed_file.write(s)
+    fixed_file.close()
+    return str(dst)
 
 
 def directory_fix(directory: str, file_pattern: str = '*'):
@@ -61,8 +61,8 @@ def directory_fix(directory: str, file_pattern: str = '*'):
         raise Exception(f'Path {directory} does not exist')
     p = Path(directory)
     LOG.debug('files', extra={'files': [str(f) for f in p.glob('*')]})
-    for file in p.glob('*'):
+    for file in p.glob(file_pattern):
         LOG.debug(str(file))
-        file_fix(file)
-        fixed_files.append(file)
+        fixed_filename = file_fix(file)
+        fixed_files.append(fixed_filename)
     return fixed_files
