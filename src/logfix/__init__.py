@@ -1,16 +1,27 @@
 #!/usr/bin/env python3
-import glob
+
 import logging
 import os
 import re
 from pathlib import Path
 
-JAVA_STACKTRACE_PATTERN = '^.*[\r\n]+.*?Exception.*(?:[\r\n]+^\s*at .*)+'
+from logfix.logfix import StacktraceFinder
+
+JAVA_STACKTRACE_PATTERN = '(^\d+\) .+)|(^.+Exception: .+)|(^\s+at .+)|(^\s+... \d+ more)|(^\s*Caused by:.+)'
 JAVA_STACKTRACE_REGEX = re.compile(JAVA_STACKTRACE_PATTERN, re.MULTILINE)
 
 LOG = logging.getLogger('logfix')
 """ The main logger. 
 """
+
+
+def _find_exception_pattern(lines):
+    LOG.debug('_find_exception_pattern()')
+    if type(lines) == str:
+        return JAVA_STACKTRACE_REGEX.finditer(lines)
+    elif type(lines) == list:
+        return JAVA_STACKTRACE_REGEX.finditer('\n'.join(lines))
+    raise TypeError(f'lines must be of type: (list|str)')
 
 
 def _replace(string, substitutions):
@@ -35,17 +46,31 @@ def file_fix(src: str, dst: str = None):
         raise Exception('Missing source file to fix.')
     if not dst or len(dst) == 0:
         dst = f'{src}.fixed'
-    stacks = {}
-    rx_blanks = re.compile(r'\W+')  # to remove blanks and newlines
-    file_source = open(src, 'r')
-    lines = '\n'.join(file_source.readlines())
-    for match in JAVA_STACKTRACE_REGEX.finditer(lines):
-        stacks[match.group(0)] = match.group(0).replace('\n', '\\n').replace('\t', ' ')
 
-    s = _replace(lines, stacks)
-    fixed_file = open(dst, 'w')
-    fixed_file.write(s)
-    fixed_file.close()
+    lines = open(src, 'r').readlines()
+    stf = StacktraceFinder(lines)
+    stf.run()
+
+    fixed = open(dst, 'w')
+
+    if stf.positions and len(stf.positions) > 0:
+        current_stacktrace_index = 0
+
+    stacktrack_as_list = []
+    for i, line in enumerate(lines):
+        if current_stacktrace_index < len(stf.positions):
+            current_stacktrace = stf.positions[current_stacktrace_index]
+        else:
+            current_stacktrace = None
+        if current_stacktrace and current_stacktrace[0] <= i <= current_stacktrace[1]:
+            stacktrack_as_list.append(line)
+        elif current_stacktrace and i > current_stacktrace[1]:
+            # fixed.write('||'.join(stacktrack_as_list))
+            stacktrack_as_list = []  # Reinit stacktrace as list
+            current_stacktrace_index += 1  # Go to next identified stacktrace
+        else:
+            fixed.write(line)
+    fixed.close()
     return str(dst)
 
 
